@@ -1,0 +1,1149 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Giselli & Lucas — Lista de Presentes</title>
+
+    <!-- Tipografia mais refinada -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            --bg: #FAF8F5;
+            /* marfim */
+            --card: #FFFFFF;
+            /* branco */
+            --ink: #2B2B2B;
+            /* texto principal */
+            --muted: #706E6B;
+            /* texto secundário */
+            --line: #E9E3DB;
+            /* linhas sutis */
+            --accent: #B6914E;
+            /* dourado suave */
+            --accent-2: #E7D8C9;
+            /* blush claro */
+            --success: #2F7D6D;
+            /* verde elegante */
+            --success-2: #E1EFEA;
+            /* verde muito claro */
+            --shadow: 0 10px 30px rgba(25, 23, 17, 0.08);
+            --radius-lg: 20px;
+            --radius-md: 14px;
+            --radius-sm: 10px;
+            --spacing: 24px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+            color: var(--ink);
+            background:
+                radial-gradient(1200px 1200px at 10% -5%, #FFFFFF 0%, transparent 60%),
+                radial-gradient(1000px 1000px at 110% 0%, #FFF7F0 0%, transparent 65%),
+                var(--bg);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: clamp(16px, 2vw, 28px);
+        }
+
+        /* ====== Cabeçalho ====== */
+        .header {
+            position: relative;
+            background: var(--card);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow);
+            padding: clamp(28px, 5vw, 56px) clamp(18px, 5vw, 56px);
+            text-align: center;
+            overflow: hidden;
+            border: 1px solid var(--line);
+        }
+
+        .header::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(800px 120px at 50% 0%, rgba(182, 145, 78, 0.10), transparent 70%),
+                radial-gradient(900px 200px at 50% 100%, rgba(231, 216, 201, 0.25), transparent 70%);
+            pointer-events: none;
+        }
+
+        .monogram {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 72px;
+            height: 72px;
+            margin: 0 auto 14px;
+            border: 2px solid var(--accent);
+            color: var(--accent);
+            border-radius: 999px;
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            letter-spacing: 2px;
+        }
+
+        .header h1 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            font-size: clamp(28px, 4vw, 44px);
+            letter-spacing: .5px;
+            margin-bottom: 6px;
+            color: #1F1C18;
+        }
+
+        .header .subtitle {
+            color: var(--muted);
+            font-size: clamp(14px, 2vw, 16px);
+            max-width: 720px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        .floral {
+            margin: 22px auto 0;
+            width: 140px;
+            height: 12px;
+            background:
+                linear-gradient(90deg, transparent, var(--accent-2), transparent);
+            border-radius: 999px;
+            position: relative;
+            opacity: .9;
+        }
+
+        .floral::after {
+            content: "";
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 46px;
+            height: 46px;
+            border: 1px solid var(--accent-2);
+            border-radius: 50%;
+            background:
+                radial-gradient(closest-side, rgba(182, 145, 78, 0.15), transparent 70%);
+            filter: blur(.2px);
+        }
+
+        /* ====== Seções/Categorias ====== */
+        .categories {
+            display: grid;
+            gap: clamp(16px, 2vw, 26px);
+            margin-top: clamp(20px, 3vw, 36px);
+        }
+
+        .category {
+            background: var(--card);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow);
+            border: 1px solid var(--line);
+            padding: clamp(18px, 3vw, 28px);
+            transition: transform .25s ease, box-shadow .25s ease;
+        }
+
+        .category:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 14px 40px rgba(25, 23, 17, 0.10);
+        }
+
+        .category h2 {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(20px, 3vw, 26px);
+            font-weight: 600;
+            color: #1F1C18;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--accent-2);
+        }
+
+        .items-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: clamp(14px, 2vw, 22px);
+            margin-top: 18px;
+        }
+
+        /* ====== Cartões de item ====== */
+        .item {
+            background: linear-gradient(180deg, #FFFFFF, #FFFEFD);
+            border: 1px solid var(--line);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+            position: relative;
+            height: 100%;
+        }
+
+        .item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 14px 34px rgba(25, 23, 17, 0.10);
+            border-color: #E4DACE;
+        }
+
+        .item::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            background: linear-gradient(180deg, rgba(182, 145, 78, 0.08), transparent 35%);
+            opacity: 0;
+            transition: opacity .25s ease;
+        }
+
+        .item:hover::before {
+            opacity: 1
+        }
+
+        .item-image,
+        .placeholder-image {
+            width: 100%;
+            aspect-ratio: 4/3;
+            object-fit: cover;
+            display: block;
+        }
+
+        .item-image {
+            transition: transform .4s ease;
+        }
+
+        .item:hover .item-image {
+            transform: scale(1.03);
+        }
+
+        .placeholder-image {
+            background: linear-gradient(135deg, #F5EFE7, #EFE7DC);
+            color: #B0A494;
+            font-size: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .item-content {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            padding: 14px 16px 16px;
+        }
+
+        .item-name {
+            font-weight: 600;
+            font-size: 1.05rem;
+            line-height: 1.35;
+            color: #322B22;
+        }
+
+        .item-price {
+            margin-top: 4px;
+            font-weight: 700;
+            font-size: 1.15rem;
+            color: var(--success);
+            background: var(--success-2);
+            border-radius: 8px;
+            padding: 8px 10px;
+            width: fit-content;
+        }
+
+        .pix-button {
+            margin-top: auto;
+            appearance: none;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 10px;
+            font-weight: 700;
+            letter-spacing: .2px;
+            background:
+                linear-gradient(180deg, #2F7D6D, #2B6F62);
+            color: #fff;
+            box-shadow: 0 8px 20px rgba(47, 125, 109, 0.25);
+            transition: transform .2s ease, box-shadow .2s ease, filter .2s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pix-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px rgba(47, 125, 109, 0.30);
+            filter: brightness(1.02);
+        }
+
+        .pix-button:active {
+            transform: translateY(0);
+        }
+
+        .pix-button::before {
+            content: '💝';
+            margin-right: 8px;
+        }
+
+        /* ====== Modal PIX ====== */
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 1000;
+            background: rgba(27, 24, 20, 0.55);
+            backdrop-filter: blur(6px);
+            padding: 24px;
+        }
+
+        .modal-content {
+            background: var(--card);
+            border: 1px solid var(--line);
+            border-radius: var(--radius-lg);
+            width: min(520px, 100%);
+            margin: 5% auto 0;
+            padding: clamp(18px, 3vw, 28px);
+            box-shadow: var(--shadow);
+            animation: modalSlideIn .3s ease;
+            position: relative;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-12px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+
+        .close {
+            position: absolute;
+            right: 14px;
+            top: 10px;
+            font-size: 28px;
+            line-height: 1;
+            color: #9A8F80;
+            cursor: pointer;
+            transition: color .2s ease, transform .2s ease;
+        }
+
+        .close:hover {
+            color: #6F675C;
+            transform: scale(1.06)
+        }
+
+        #modalTitle {
+            font-family: 'Playfair Display', serif;
+            font-size: 22px;
+            font-weight: 600;
+            color: #2C2A27;
+            margin-bottom: 12px;
+        }
+
+        .pix-info {
+            background: #FBF9F6;
+            border: 1px solid var(--line);
+            border-left: 4px solid var(--accent);
+            border-radius: 12px;
+            padding: 14px 14px 12px;
+            margin: 16px 0;
+        }
+
+        .pix-info h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 18px;
+            color: #1F1C18;
+            margin-bottom: 6px;
+        }
+
+        .pix-info p {
+            color: var(--muted);
+            margin: 4px 0;
+        }
+
+        .qr-container {
+            text-align: center;
+            margin: 18px 0 6px;
+        }
+
+        .qr-code {
+            width: 200px;
+            height: 200px;
+            margin: 14px auto 10px;
+            background: #fff;
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 24px rgba(25, 23, 17, 0.06);
+            position: relative;
+        }
+
+        .qr-code::after {
+            content: "";
+            position: absolute;
+            inset: -8px;
+            border-radius: 18px;
+            background: conic-gradient(from 0deg, rgba(182, 145, 78, 0.18), transparent 25%, transparent 75%, rgba(182, 145, 78, 0.18));
+            filter: blur(14px);
+            opacity: .45;
+            z-index: -1;
+        }
+
+        .qr-code img {
+            width: 180px;
+            height: 180px;
+            object-fit: contain;
+        }
+
+        .copy-button {
+            background: linear-gradient(180deg, #B6914E, #A9843A);
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 8px;
+            padding: 10px 14px;
+            font-weight: 700;
+            box-shadow: 0 8px 20px rgba(182, 145, 78, 0.25);
+            transition: transform .2s ease, box-shadow .2s ease;
+        }
+
+        .copy-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px rgba(182, 145, 78, 0.32);
+        }
+
+        .footer {
+            margin-top: clamp(24px, 4vw, 48px);
+            background: var(--card);
+            border: 1px solid var(--line);
+            border-radius: var(--radius-lg);
+            padding: clamp(18px, 3vw, 26px);
+            text-align: center;
+            box-shadow: var(--shadow);
+        }
+
+        .footer p {
+            color: var(--muted);
+        }
+
+        /* Loading spinner */
+        .loading {
+            display: inline-block;
+            width: 26px;
+            height: 26px;
+            border: 3px solid #EEE7DC;
+            border-top: 3px solid var(--accent);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg)
+            }
+        }
+
+        /* Responsivo */
+        @media (max-width: 768px) {
+            .items-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .modal {
+                padding: 12px;
+            }
+
+            .modal-content {
+                margin-top: 12%
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="monogram">G&L</div>
+            <h1>Giselli & Lucas</h1>
+            <p class="subtitle">Com muito carinho, preparamos esta lista para quem deseja nos presentear.
+                Sua contribuição fará parte da nossa nova casa. Obrigado por celebrar este momento conosco!</p>
+            <div class="floral" aria-hidden="true"></div>
+        </header>
+
+        <main class="categories">
+            <!-- ====== Categoria: Eletrodomésticos e Eletroportáteis ====== -->
+            <section class="category">
+                <h2>🏠 Eletrodomésticos e Eletroportáteis</h2>
+                <div class="items-grid">
+                    <div class="item">
+                        <img src="https://casafreitas2.vteximg.com.br/arquivos/ids/270512-1000-1000/2539038500001-Air-Fryer-Maxis-32L-AF-33-220V-Mondial-01--2-.jpg?v=638459455043870000"
+                            alt="Air Fryer" class="item-image"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="placeholder-image" style="display:none;">🍟</div>
+                        <div class="item-content">
+                            <div class="item-name">Air Fryer</div>
+                            <div class="item-price">R$ 250,00</div>
+                            <button class="pix-button" onclick="openPixModal('Air Fryer', 250.00)">Presentear via
+                                PIX</button>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <img src="https://2500.cdn.simplo7.net/static/2500/sku/eletrodomesticos-forno-de-micro-ondas-lg-30-litros-com-grill-de-quartzo-revestimento-easy-clean-limpeza-2x-mais-facil-e-tecnologica-eco-on-e-i-wave-cor-prata-220v--p-1651154833952.png"
+                            alt="Micro-ondas" class="item-image"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="placeholder-image" style="display:none;">📱</div>
+                        <div class="item-content">
+                            <div class="item-name">Micro-ondas</div>
+                            <div class="item-price">R$ 450,00</div>
+                            <button class="pix-button" onclick="openPixModal('Micro-ondas', 450.00)">Presentear via
+                                PIX</button>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <img src="https://down-br.img.susercontent.com/file/728e929695d631b75112a6e4ef035050"
+                            alt="Batedeira" class="item-image"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="placeholder-image" style="display:none;">🥄</div>
+                        <div class="item-content">
+                            <div class="item-name">Batedeira</div>
+                            <div class="item-price">R$ 180,00</div>
+                            <button class="pix-button" onclick="openPixModal('Batedeira', 180.00)">Presentear via
+                                PIX</button>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <img src="https://www.worten.pt/i/4527161eb6d76c6f45747660f38c8802cf299e6d" alt="Forno Elétrico"
+                            class="item-image"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="placeholder-image" style="display:none;">🔥</div>
+                        <div class="item-content">
+                            <div class="item-name">Forno Elétrico</div>
+                            <div class="item-price">R$ 320,00</div>
+                            <button class="pix-button" onclick="openPixModal('Forno Elétrico', 320.00)">Presentear via
+                                PIX</button>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <img src="https://cdn.sistemawbuy.com.br/arquivos/bad71a3bfd07eaf69456a5217a4b6733/produtos/674dc7daceef3/7d3531745e3b938ccaf7f66fa5923920-674dc8087fc9d.jpg"
+                            alt="Grill Elétrico" class="item-image"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="placeholder-image" style="display:none;">🔥</div>
+                        <div class="item-content">
+                            <div class="item-name">Grill Elétrico</div>
+                            <div class="item-price">R$ 150,00</div>
+                            <button class="pix-button" onclick="openPixModal('Grill Elétrico', 150.00)">Presentear via
+                                PIX</button>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <img src="https://images.tcdn.com.br/img/img_prod/1107019/purificador_de_agua_soft_fit_preto_17_1_07077155551960cd5a68e14582bcd9c7.jpg"
+                            alt="Purificador de Água" class="item-image"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="placeholder-image" style="display:none;">💧</div>
+                        <div class="item-content">
+                            <div class="item-name">Purificador de Água</div>
+                            <div class="item-price">R$ 280,00</div>
+                            <button class="pix-button" onclick="openPixModal('Purificador de Água', 280.00)">Presentear
+                                via PIX</button>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <img src="https://cdn.leroymerlin.com.br/products/sanduicheira_misteira_eletrica_grill_versatil_pratica_grelhad_1571425324_602f_600x600.jpg"
+                            alt="Purificador de Água" class="item-image"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+
+                        <div class="item-content">
+                            <div class="item-name">Misteira</div>
+                            <div class="item-price">R$ 120,00</div>
+                            <button class="pix-button" onclick="openPixModal('Misteira', 120.00)">Presentear via
+                                PIX</button>
+                        </div>
+                    </div>
+
+                    <div class="item">
+
+                        <img src="https://mercantilnovaera.vtexassets.com/arquivos/ids/199557-800-450?v=637929036835470000&width=800&height=450&aspect=true"
+                            alt="Purificador de Água" class="item-image"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+
+                        <div class="item-content">
+                            <div class="item-name">Liquidificador</div>
+                            <div class="item-price">R$ 150,00</div>
+                            <button class="pix-button" onclick="openPixModal('Liquidificador', 150.00)">Presentear via
+                                PIX</button>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <img src="https://d1j48ryyrcdvj8.cloudfront.net/Custom/Content/Products/90/31/90319_aspirador-de-po-vertical-britania-bas1295p-1250w-preto_m3_638357297883105043.webp"
+                            alt="Purificador de Água" class="item-image"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="item-content">
+                            <div class="item-name">Aspirador de Pó</div>
+                            <div class="item-price">R$ 350,00</div>
+                            <button class="pix-button" onclick="openPixModal('Aspirador de Pó', 350.00)">Presentear via
+                                PIX</button>
+                        </div>
+                    </div>
+
+                    <div class="item">
+
+                        <img src="https://i.zst.com.br/thumbs/12/d/36/24479131.jpg" alt="Purificador de Água"
+                            class="item-image"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="item-content">
+                            <div class="item-name">Ferro de Passar</div>
+                            <div class="item-price">R$ 80,00</div>
+                            <button class="pix-button" onclick="openPixModal('Ferro de Passar', 80.00)">Presentear via
+                                PIX</button>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <img src="https://assets.betalabs.net/fit-in/760x760/filters:fill(white)/production/projetocasaecompanhia/item-images/041208c70224d113631e8c8e518e1d80.png"
+                            alt="Purificador de Água" class="item-image"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="item-content">
+                            <div class="item-name">Ventilador</div>
+                            <div class="item-price">R$ 180,00</div>
+                            <button class="pix-button" onclick="openPixModal('Ventilador', 180.00)">Presentear via
+                                PIX</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ====== Categoria: Móveis ====== -->
+            <section class="category">
+                <h2>🛋️ Móveis</h2>
+                <div class="items-grid">
+                    <div class="item">
+                        <img src="https://copelcolchoes.vtexassets.com/arquivos/ids/171745/cama-box-casal-padrao-com-cabeceira-dakota-veludo-bege-copel-colchoes.jpg?v=638657465966200000"
+                            alt="Cama" class="item-image"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="placeholder-image" style="display:none;">🛏️</div>
+                        <div class="item-content">
+                            <div class="item-name">Cama</div>
+                            <div class="item-price">R$ 800,00</div>
+                            <button class="pix-button" onclick="openPixModal('Cama', 800.00)">Presentear via
+                                PIX</button>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <img src="https://panoverse-cdn.com.br/olivar.img/produto/105/guarda-roupa-casal-retro-versalhes-3-portas-3-gavetas-branco-olivar-moveis-2386-large.jpg"
+                            alt="Guarda-roupa" class="item-image"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="placeholder-image" style="display:none;">👗</div>
+                        <div class="item-content">
+                            <div class="item-name">Guarda-roupa</div>
+                            <div class="item-price">R$ 1.200,00</div>
+                            <button class="pix-button" onclick="openPixModal('Guarda-roupa', 1200.00)">Presentear via
+                                PIX</button>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <img src="https://viggore.vtexassets.com/arquivos/ids/174691/leblon-brak-04-infinito.jpg?v=638664404298770000"
+                            alt="Sofá" class="item-image"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+
+                        <div class="placeholder-image" style="display:none;">🛋️</div>
+                        <div class="item-content">
+                            <div class="item-name">Sofá</div>
+                            <div class="item-price">R$ 1.500,00</div>
+                            <button class="pix-button" onclick="openPixModal('Sofá', 1500.00)">Presentear via
+                                PIX</button>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <img src="https://gazin-images.gazin.com.br/kZv690B9XADF96aDCFxMCKSuABg=/1920x/filters:format(webp):quality(75)/https://gazin-marketplace.s3.amazonaws.com/midias/imagens/2024/06/painel-para-tv-ate-45-com-porta-deslizante-jade-caemmun-112406232652.jpg"
+                            alt="Sofá" class="item-image"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+
+                        <div class="item-content">
+                            <div class="item-name">Painel de TV</div>
+                            <div class="item-price">R$ 400,00</div>
+                            <button class="pix-button" onclick="openPixModal('Painel de TV', 400.00)">Presentear via
+                                PIX</button>
+                        </div>
+                    </div>
+
+                    <div class="item">
+
+                        <img src="https://www.americanas.com.br/_next/image?url=https%3A%2F%2Famericanas.vtexassets.com%2Farquivos%2Fids%2F2768070%2F7507882883_1_xlarge.jpg%3Fv%3D638751083760530000&w=768&q=90"
+                            alt="Sofá" class="item-image"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="item-content">
+                            <div class="item-name">Nicho Gabinete para Tanque</div>
+                            <div class="item-price">R$ 250,00</div>
+                            <button class="pix-button"
+                                onclick="openPixModal('Nicho Gabinete para Tanque', 250.00)">Presentear via PIX</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ====== Categoria: Cama, Mesa e Banho ====== -->
+            <section class="category">
+                <h2>🛏️ Cama, Mesa e Banho</h2>
+                <div class="items-grid">
+                    <div class="item">
+                        <img src="https://3a36cfaa62ac8ba9.cdn.gocache.net/images/produtos/mix_grafite_jogo_2021_1_20210331__g.jpg"
+                            alt="Jogo de Cama" class="item-image"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+
+                        <div class="placeholder-image" style="display:none;">🛏️</div>
+                        <div class="item-content">
+                            <div class="item-name">Jogo de Cama</div>
+                            <div class="item-price">R$ 120,00</div>
+                            <button class="pix-button" onclick="openPixModal('Jogo de Cama', 120.00)">Presentear via
+                                PIX</button>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <img src="https://images.tcdn.com.br/img/img_prod/752012/cobre_leito_pratico_queen_dupla_face_3_pecas_cinza_12567_1_8a3d29d8d63b767332d221d87f705d22.jpg"
+                            alt="Jogo de Cama" class="item-image"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="item-content">
+                            <div class="item-name">Cobre Leito</div>
+                            <div class="item-price">R$ 150,00</div>
+                            <button class="pix-button" onclick="openPixModal('Cobre Leito', 150.00)">Presentear via
+                                PIX</button>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <img src="https://images.tcdn.com.br/img/img_prod/600194/edredom_king_300_fios_kacyumara_liso_cinza_satinee_acetinado_8795_1_03311cffddcd2226e372aa390c0d789c.png"
+                            alt="Jogo de Cama" class="item-image"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="item-content">
+                            <div class="item-name">Edredom</div>
+                            <div class="item-price">R$ 200,00</div>
+                            <button class="pix-button" onclick="openPixModal('Edredom', 200.00)">Presentear via
+                                PIX</button>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <img src="https://espacocasa.com/wp-content/uploads/2022/07/715356.png" alt="Toalhas de Banho"
+                            class="item-image"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="placeholder-image" style="display:none;">🛁</div>
+                        <div class="item-content">
+                            <div class="item-name">Toalhas de Banho</div>
+                            <div class="item-price">R$ 80,00</div>
+                            <button class="pix-button" onclick="openPixModal('Toalhas de Banho', 80.00)">Presentear via
+                                PIX</button>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <img src="https://dleyjack4mlu0.cloudfront.net/Custom/Content/Products/47/08/4708_tapete-sala-150-x-200-classic-trigo-tapetes-oasis_l1_638035852813801012.webp"
+                            alt="Toalhas de Banho" class="item-image"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+
+                        <div class="item-content">
+                            <div class="item-name">Tapete</div>
+                            <div class="item-price">R$ 100,00</div>
+                            <button class="pix-button" onclick="openPixModal('Tapete', 100.00)">Presentear via
+                                PIX</button>
+                        </div>
+                    </div>
+
+                    <div class="item"> <img
+                            src="https://a-static.mlcdn.com.br/800x560/manta-de-sofa-com-forro-3-lugares-com-laco-matelado-lancamento-marrom-brucebaby-bordados/brucebabybordados/01607e3cc93211ebb1fc4201ac18500e/d0fe18e55adb2c63307325a453ac3f10.jpeg"
+                            alt="Toalhas de Banho" class="item-image"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="item-content">
+                            <div class="item-name">Mantas para Sofá</div>
+                            <div class="item-price">R$ 90,00</div>
+                            <button class="pix-button" onclick="openPixModal('Mantas para Sofá', 90.00)">Presentear via
+                                PIX</button>
+                        </div>
+                    </div>
+
+                    <div class="item"><img
+                            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTi1qgGdCXuPxLqb1C2QoVez2kxcpSVyS0VEQ&s"
+                            alt="Toalhas de Banho" class="item-image"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="item-content">
+                            <div class="item-name">Jogo de Lençol</div>
+                            <div class="item-price">R$ 100,00</div>
+                            <button class="pix-button" onclick="openPixModal('Jogo de Lençol', 100.00)">Presentear via
+                                PIX</button>
+                        </div>
+                    </div>
+
+                    <div class="item"><img
+                            src="https://emporiodolencol.vtexassets.com/arquivos/ids/158364/jogo-cama-casal-profissional-180-fios-100-algodao-profitextil-branco-2.jpg?v=636511018910630000"
+                            alt="Toalhas de Banho" class="item-image"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="item-content">
+                            <div class="item-name">Forros de Cama</div>
+                            <div class="item-price">R$ 60,00</div>
+                            <button class="pix-button" onclick="openPixModal('Forros de Cama', 60.00)">Presentear via
+                                PIX</button>
+                        </div>
+                    </div>
+
+                    <div class="item"><img src="https://m.media-amazon.com/images/I/81A1xJCF0wL._UF894,1000_QL80_.jpg"
+                            alt="Toalhas de Banho" class="item-image"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="item-content">
+                            <div class="item-name">Travesseiros</div>
+                            <div class="item-price">R$ 120,00</div>
+                            <button class="pix-button" onclick="openPixModal('Travesseiros', 120.00)">Presentear via
+                                PIX</button>
+                        </div>
+                    </div>
+
+                    <div class="item"><img
+                            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQXqfpnJldOa0MGPFptOA4_JlVVQDS9vDf1w&s"
+                            alt="Toalhas de Banho" class="item-image"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="item-content">
+                            <div class="item-name">Cortina</div>
+                            <div class="item-price">R$ 150,00</div>
+                            <button class="pix-button" onclick="openPixModal('Cortina', 150.00)">Presentear via
+                                PIX</button>
+                        </div>
+                    </div>
+
+                    <div class="item"><img
+                            src="https://lojaplasticossantana.com.br/public/produtos/410/12563-cabides-preto-conjunto-com-36-unid_m.jpg"
+                            alt="Toalhas de Banho" class="item-image"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="item-content">
+                            <div class="item-name">Cabides</div>
+                            <div class="item-price">R$ 40,00</div>
+                            <button class="pix-button" onclick="openPixModal('Cabides', 40.00)">Presentear via
+                                PIX</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ====== Categoria: Utensílios de Cozinha ====== -->
+            <section class="category">
+                <h2>🍳 Utensílios de Cozinha</h2>
+                <div class="items-grid">
+                    <div class="item">
+                        <img src="https://casafreitas2.vteximg.com.br/arquivos/ids/279275-1000-1000/001279A00001N-jogo-panelas-coimbra-5-pecas-antiaderente-vermelho-tramontina--2-.jpg?v=638703005832670000"
+                            alt="Conjunto de Panelas" class="item-image"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+
+                        <div class="placeholder-image" style="display:none;">🍳</div>
+                        <div class="item-content">
+                            <div class="item-name">Conjunto de Panelas</div>
+                            <div class="item-price">R$ 300,00</div>
+                            <button class="pix-button" onclick="openPixModal('Conjunto de Panelas', 300.00)">Presentear
+                                via PIX</button>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <img src="https://expresso10.cdn.magazord.com.br/img/2022/03/produto/62946/23498064ixm001a.jpg?ims=fit-in/800x800/filters:fill(white)"
+                            alt="Conjunto de Panelas" class="item-image"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="item-content">
+                            <div class="item-name">Jogo de Facas</div>
+                            <div class="item-price">R$ 150,00</div>
+                            <button class="pix-button" onclick="openPixModal('Jogo de Facas', 150.00)">Presentear via
+                                PIX</button>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <img src="https://coqueluchecasa.vteximg.com.br/arquivos/ids/264289-1000-1000/travessa_refratraria_vidro_34cm_hauskraft.png?v=638387583517470000"
+                            alt="Conjunto de Panelas" class="item-image"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="item-content">
+                            <div class="item-name">Travessas de Vidro ou Cerâmica</div>
+                            <div class="item-price">R$ 120,00</div>
+                            <button class="pix-button"
+                                onclick="openPixModal('Travessas de Vidro ou Cerâmica', 120.00)">Presentear via
+                                PIX</button>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <img src="https://d9a2b0af1mfg9.cloudfront.net/Custom/Content/Products/16/92/16926_jogo-jantar-cha-cafe-pr-12196-803299_m3_637807087700227347.webp"
+                            alt="Conjunto de Panelas" class="item-image"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="item-content">
+                            <div class="item-name">Aparelho de Jantar</div>
+                            <div class="item-price">R$ 250,00</div>
+                            <button class="pix-button"
+                                onclick="openPixModal('Aparelho de Jantar Completo', 250.00)">Presentear via
+                                PIX</button>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <img src="https://ocapi.nadir.com.br/on/demandware.static/-/Sites-nadir-main-catalog/default/dw56b4dd4b/nadir/zoom/77040201144268_a_1000px.webp"
+                            alt="Conjunto de Panelas" class="item-image"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="item-content">
+                            <div class="item-name">Conjunto de Copos</div>
+                            <div class="item-price">R$ 80,00</div>
+                            <button class="pix-button" onclick="openPixModal('Conjunto de Copos', 80.00)">Presentear via
+                                PIX</button>
+                        </div>
+                    </div>
+
+
+
+                    <div class="item">
+                        <img src="https://aspanelas.com.br/wp-content/uploads/2017/11/panela-de-vidro-para-fogao.jpg.webp"
+                            alt="Conjunto de Panelas" class="item-image"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="item-content">
+                            <div class="item-name">Tigelas de Vidro</div>
+                            <div class="item-price">R$ 200,00</div>
+                            <button class="pix-button"
+                                onclick="openPixModal('Jogo de Panelas de Vidro', 200.00)">Presentear via PIX</button>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <img src="https://www.eccosalva.com.br/eccomoney/wp-content/uploads/2024/08/Conjunto-De-Assadeiras-Formas-Para-Bolo-Em-Aluminio-4-Pecas.jpg"
+                            alt="Conjunto de Panelas" class="item-image"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="item-content">
+                            <div class="item-name">Formas de Bolo</div>
+                            <div class="item-price">R$ 60,00</div>
+                            <button class="pix-button" onclick="openPixModal('Formas de Bolo', 60.00)">Presentear via
+                                PIX</button>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <img src="https://www.lotshomeshop.com.br/arquivos/ids/166006-1000-1000/Jogo-De-Potes-Herm-ticos-De-Pl-stico-Freshy-9-Pe-a.jpg?v=638557201384400000"
+                            alt="Conjunto de Panelas" class="item-image"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+
+                        <div class="item-content">
+                            <div class="item-name">Potes de Plástico</div>
+                            <div class="item-price">R$ 50,00</div>
+                            <button class="pix-button" onclick="openPixModal('Potes de Plástico', 50.00)">Presentear via
+                                PIX</button>
+                        </div>
+                    </div>
+
+                    <div class="item"> <img
+                            src="https://images.tcdn.com.br/img/img_prod/1042899/kit_mini_block_potes_hermeticos_temperos_16_unidades_1025_2_57624760620c65d676323d3b936ae108.jpg"
+                            alt="Conjunto de Panelas" class="item-image"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="item-content">
+                            <div class="item-name">Potes de Condimentos</div>
+                            <div class="item-price">R$ 40,00</div>
+                            <button class="pix-button" onclick="openPixModal('Potes de Condimentos', 40.00)">Presentear
+                                via PIX</button>
+                        </div>
+                    </div>
+
+                    <div class="item"> <img
+                            src="https://images.tcdn.com.br/img/img_prod/452310/jogo_de_pano_de_prato_atoalhado_bom_apetite_07_pecas_60836_1_20220406112042.jpg"
+                            alt="Conjunto de Panelas" class="item-image"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="item-content">
+                            <div class="item-name">Pano de Prato</div>
+                            <div class="item-price">R$ 30,00</div>
+                            <button class="pix-button" onclick="openPixModal('Pano de Prato', 30.00)">Presentear via
+                                PIX</button>
+                        </div>
+                    </div>
+
+                    <div class="item"> <img src="https://http2.mlstatic.com/D_Q_NP_965881-MLU77620603539_072024-O.webp"
+                            alt="Conjunto de Panelas" class="item-image"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="item-content">
+                            <div class="item-name">Utensílios de Silicone</div>
+                            <div class="item-price">R$ 80,00</div>
+                            <button class="pix-button"
+                                onclick="openPixModal('Utensílios de Silicone', 80.00)">Presentear via PIX</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <p>💝 Obrigado por fazer parte do nosso momento especial. Cada presente é um gesto de carinho que levaremos
+                para sempre.</p>
+        </footer>
+    </div>
+
+    <!-- ====== Modal PIX (funções mantidas) ====== -->
+    <div id="pixModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closePixModal()">&times;</span>
+            <h2 id="modalTitle">Pagamento via PIX</h2>
+
+            <div class="pix-info">
+                <h3>Detalhes do Presente</h3>
+                <p><strong>Item:</strong> <span id="itemName"></span></p>
+                <p><strong>Valor:</strong> <span id="itemPrice"></span></p>
+            </div>
+
+            <div class="qr-container">
+                <div class="qr-code" id="qrCode">
+                    <div class="loading"></div>
+                </div>
+                <p class="subtitle" style="margin-top:6px;">Escaneie o QR Code com seu app do banco</p>
+            </div>
+
+            <div class="pix-info">
+                <h3>Dados para PIX</h3>
+                <p><strong>CPF:</strong> 131.134.976-63</p>
+                <p><strong>Nome:</strong> Lista de Presentes</p>
+                <p><strong>Valor:</strong> <span id="pixValue"></span></p>
+                <p><strong>Chave PIX:</strong> <span id="pixKey">13113497663</span></p>
+                <button class="copy-button" onclick="copyPixKey()">Copiar Chave PIX</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ====== JS original (funções mantidas) ====== -->
+    <script>
+        function openPixModal(itemName, price) {
+            document.getElementById('itemName').textContent = itemName;
+            document.getElementById('itemPrice').textContent = `R$ ${price.toFixed(2).replace('.', ',')}`;
+            document.getElementById('pixValue').textContent = `R$ ${price.toFixed(2).replace('.', ',')}`;
+
+            // Gerar QR Code PIX
+            generatePixQRCode(itemName, price);
+            document.getElementById('pixModal').style.display = 'block';
+        }
+
+        function closePixModal() {
+            document.getElementById('pixModal').style.display = 'none';
+        }
+
+        function generatePixQRCode(itemName, price) {
+            const qrContainer = document.getElementById('qrCode');
+            qrContainer.innerHTML = '<div class="loading"></div>';
+
+            const pixPayload = generatePixPayload('13113497663', price, itemName);
+
+            setTimeout(() => {
+                const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(pixPayload)}`;
+                qrContainer.innerHTML = `<img src="${qrCodeUrl}" alt="QR Code PIX">`;
+            }, 1000);
+        }
+
+        function generatePixPayload(cpf, amount, description) {
+            const cpfFormatted = cpf.replace(/\D/g, '');
+            let payload = "00020";
+            payload += "126";
+
+            const gui = "0014BR.GOV.BCB.PIX";
+            const keyField = `01${cpfFormatted.length.toString().padStart(2, '0')}${cpfFormatted}`;
+            const descField = description ? `02${Math.min(description.length, 25).toString().padStart(2, '0')}${description.substring(0, 25)}` : "";
+            const merchantInfo = gui + keyField + descField;
+            payload += `${merchantInfo.length.toString().padStart(2, '0')}${merchantInfo}`;
+            payload += "52040000";
+            payload += "5303986";
+            if (amount > 0) {
+                const amountStr = amount.toFixed(2);
+                payload += `54${amountStr.length.toString().padStart(2, '0')}${amountStr}`;
+            }
+            payload += "5802BR";
+            const merchantName = "Lista de Presentes";
+            payload += `59${merchantName.length.toString().padStart(2, '0')}${merchantName}`;
+            const merchantCity = "SERRA";
+            payload += `60${merchantCity.length.toString().padStart(2, '0')}${merchantCity}`;
+            const additionalData = "0503***";
+            payload += `62${additionalData.length.toString().padStart(2, '0')}${additionalData}`;
+            payload += "6304";
+            const crc = calculateCRC16(payload);
+            payload += crc.toString(16).toUpperCase().padStart(4, '0');
+            return payload;
+        }
+
+        function calculateCRC16(data) {
+            let crc = 0xFFFF;
+            for (let i = 0; i < data.length; i++) {
+                crc ^= data.charCodeAt(i) << 8;
+                for (let j = 0; j < 8; j++) {
+                    if (crc & 0x8000) {
+                        crc = (crc << 1) ^ 0x1021;
+                    } else {
+                        crc <<= 1;
+                    }
+                    crc &= 0xFFFF;
+                }
+            }
+            return crc;
+        }
+
+        function copyPixKey() {
+            const pixKey = document.getElementById('pixKey').textContent;
+            navigator.clipboard.writeText(pixKey).then(() => {
+                const button = event.target;
+                const originalText = button.textContent;
+                button.textContent = 'Copiado!';
+                button.style.filter = 'brightness(1.08)';
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.style.filter = 'none';
+                }, 2000);
+            });
+        }
+
+        // Fechar modal clicando fora
+        window.onclick = function (event) {
+            const modal = document.getElementById('pixModal');
+            if (event.target == modal) closePixModal();
+        }
+
+        // Animação suave nos cards quando entram na tela (mantido)
+        document.addEventListener('DOMContentLoaded', function () {
+            const items = document.querySelectorAll('.item');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: .12 });
+
+            items.forEach(item => {
+                item.style.opacity = '0';
+                item.style.transform = 'translateY(16px)';
+                item.style.transition = 'opacity .6s ease, transform .6s ease';
+                observer.observe(item);
+            });
+        });
+    </script>
+</body>
+
+</html>
