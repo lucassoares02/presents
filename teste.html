@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Giselli & Lucas — Lista de Presentes</title>
+
+    <!-- Tipografia (opcional). Se seu ambiente bloquear CDNs, remova a linha abaixo. -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@400;600;700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            --bg: #FAF8F5;
+            --card: #FFF;
+            --ink: #2B2B2B;
+            --muted: #706E6B;
+            --line: #E9E3DB;
+            --accent: #B6914E;
+            --accent-2: #E7D8C9;
+            --success: #2F7D6D;
+            --success-2: #E1EFEA;
+            --shadow: 0 10px 30px rgba(25, 23, 17, .08)
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--ink)
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 16px
+        }
+
+        .header {
+            background: var(--card);
+            border: 1px solid var(--line);
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            padding: 28px;
+            text-align: center;
+            margin-bottom: 18px
+        }
+
+        .monogram {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 64px;
+            height: 64px;
+            border: 2px solid var(--accent);
+            border-radius: 999px;
+            color: var(--accent);
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            margin-bottom: 10px
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            margin-bottom: 6px
+        }
+
+        .subtitle {
+            color: var(--muted);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6
+        }
+
+        .summary {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 14px
+        }
+
+        .summary a {
+            background: var(--card);
+            border: 1px solid var(--line);
+            padding: 8px 12px;
+            border-radius: 999px;
+            text-decoration: none;
+            color: #2C2A27;
+            font-weight: 600;
+            box-shadow: var(--shadow)
+        }
+
+        .categories {
+            display: grid;
+            gap: 16px;
+            margin-top: 18px
+        }
+
+        .category {
+            background: var(--card);
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            box-shadow: var(--shadow);
+            padding: 18px
+        }
+
+        .category h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 22px;
+            border-bottom: 2px solid var(--accent-2);
+            padding-bottom: 6px
+        }
+
+        .items-grid {
+            margin-top: 14px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 14px
+        }
+
+        .item {
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            background: #fff
+        }
+
+        .item img {
+            width: 100%;
+            aspect-ratio: 4/3;
+            object-fit: cover
+        }
+
+        .item-content {
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px
+        }
+
+        .item-name {
+            font-weight: 700
+        }
+
+        .item-price {
+            font-weight: 700;
+            color: var(--success);
+            background: var(--success-2);
+            padding: 6px 8px;
+            border-radius: 8px;
+            width: max-content
+        }
+
+        .pix-button {
+            margin-top: auto;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(180deg, #2F7D6D, #2B6F62);
+            color: #fff;
+            padding: 10px 12px;
+            font-weight: 700;
+            cursor: pointer
+        }
+
+        .pix-button::before {
+            content: "💝 ";
+        }
+
+        .footer {
+            margin-top: 20px;
+            background: var(--card);
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            padding: 16px;
+            text-align: center;
+            box-shadow: var(--shadow)
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, .5);
+            z-index: 999;
+            padding: 16px
+        }
+
+        .modal-content {
+            background: #fff;
+            border-radius: 16px;
+            border: 1px solid var(--line);
+            box-shadow: var(--shadow);
+            margin: 5% auto 0;
+            width: min(520px, 100%);
+            padding: 18px;
+            position: relative
+        }
+
+        .close {
+            position: absolute;
+            right: 10px;
+            top: 8px;
+            font-size: 26px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #7e7e7e
+        }
+
+        .pix-info {
+            background: #FBF9F6;
+            border: 1px solid var(--line);
+            border-left: 4px solid var(--accent);
+            border-radius: 12px;
+            padding: 12px;
+            margin: 12px 0
+        }
+
+        .qr-code {
+            width: 200px;
+            height: 200px;
+            margin: 12px auto;
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #fff;
+            overflow: hidden
+        }
+
+        .qr-code img {
+            width: 180px;
+            height: 180px;
+            display: block
+        }
+
+        .actions {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 8px
+        }
+
+        .copy-button {
+            background: linear-gradient(180deg, #B6914E, #A9843A);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 12px;
+            font-weight: 700;
+            cursor: pointer
+        }
+
+        .muted {
+            color: var(--muted);
+            font-size: .9rem
+        }
+
+        @media (max-width:768px) {
+            .items-grid {
+                grid-template-columns: 1fr
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="monogram">G&L</div>
+            <h1>Giselli & Lucas</h1>
+            <p class="subtitle">Com muito carinho, preparamos esta lista para quem deseja nos presentear. Sua
+                contribuição fará parte da nossa nova casa. Obrigado por celebrar este momento conosco!</p>
+            <nav class="summary" aria-label="Categorias">
+                <a href="#cat-eletro">Eletro</a>
+                <a href="#cat-moveis">Móveis</a>
+                <a href="#cat-camamesa">Cama, Mesa e Banho</a>
+                <a href="#cat-cozinha">Cozinha</a>
+            </nav>
+        </header>
+
+        <main class="categories">
+            <!-- Eletro -->
+            <section class="category" id="cat-eletro">
+                <h2>🏠 Eletrodomésticos e Eletroportáteis</h2>
+                <div class="items-grid">
+                    <div class="item">
+                        <img src="https://casafreitas2.vteximg.com.br/arquivos/ids/270512-1000-1000/2539038500001-Air-Fryer-Maxis-32L-AF-33-220V-Mondial-01--2-.jpg?v=638459455043870000"
+                            alt="Air Fryer">
+                        <div class="item-content">
+                            <div class="item-name">Air Fryer</div>
+                            <div class="item-price">R$ 250,00</div>
+                            <button class="pix-button" onclick="openPixModal('Air Fryer', 250.00)">Presentear via
+                                PIX</button>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <img src="https://2500.cdn.simplo7.net/static/2500/sku/eletrodomesticos-forno-de-micro-ondas-lg-30-litros-com-grill-de-quartzo-revestimento-easy-clean-limpeza-2x-mais-facil-e-tecnologica-eco-on-e-i-wave-cor-prata-220v--p-1651154833952.png"
+                            alt="Micro-ondas">
+                        <div class="item-content">
+                            <div class="item-name">Micro-ondas</div>
+                            <div class="item-price">R$ 450,00</div>
+                            <button class="pix-button" onclick="openPixModal('Micro-ondas', 450.00)">Presentear via
+                                PIX</button>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <img src="https://down-br.img.susercontent.com/file/728e929695d631b75112a6e4ef035050"
+                            alt="Batedeira">
+                        <div class="item-content">
+                            <div class="item-name">Batedeira</div>
+                            <div class="item-price">R$ 180,00</div>
+                            <button class="pix-button" onclick="openPixModal('Batedeira', 180.00)">Presentear via
+                                PIX</button>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <img src="https://www.worten.pt/i/4527161eb6d76c6f45747660f38c8802cf299e6d"
+                            alt="Forno Elétrico">
+                        <div class="item-content">
+                            <div class="item-name">Forno Elétrico</div>
+                            <div class="item-price">R$ 320,00</div>
+                            <button class="pix-button" onclick="openPixModal('Forno Elétrico', 320.00)">Presentear via
+                                PIX</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Móveis -->
+            <section class="category" id="cat-moveis">
+                <h2>🛋️ Móveis</h2>
+                <div class="items-grid">
+                    <div class="item">
+                        <img src="https://copelcolchoes.vtexassets.com/arquivos/ids/171745/cama-box-casal-padrao-com-cabeceira-dakota-veludo-bege-copel-colchoes.jpg?v=638657465966200000"
+                            alt="Cama">
+                        <div class="item-content">
+                            <div class="item-name">Cama</div>
+                            <div class="item-price">R$ 800,00</div>
+                            <button class="pix-button" onclick="openPixModal('Cama', 800.00)">Presentear via
+                                PIX</button>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <img src="https://panoverse-cdn.com.br/olivar.img/produto/105/guarda-roupa-casal-retro-versalhes-3-portas-3-gavetas-branco-olivar-moveis-2386-large.jpg"
+                            alt="Guarda-roupa">
+                        <div class="item-content">
+                            <div class="item-name">Guarda-roupa</div>
+                            <div class="item-price">R$ 1.200,00</div>
+                            <button class="pix-button" onclick="openPixModal('Guarda-roupa', 1200.00)">Presentear via
+                                PIX</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Cama, Mesa e Banho -->
+            <section class="category" id="cat-camamesa">
+                <h2>🛏️ Cama, Mesa e Banho</h2>
+                <div class="items-grid">
+                    <div class="item">
+                        <img src="https://3a36cfaa62ac8ba9.cdn.gocache.net/images/produtos/mix_grafite_jogo_2021_1_20210331__g.jpg"
+                            alt="Jogo de Cama">
+                        <div class="item-content">
+                            <div class="item-name">Jogo de Cama</div>
+                            <div class="item-price">R$ 120,00</div>
+                            <button class="pix-button" onclick="openPixModal('Jogo de Cama', 120.00)">Presentear via
+                                PIX</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Cozinha -->
+            <section class="category" id="cat-cozinha">
+                <h2>🍳 Utensílios de Cozinha</h2>
+                <div class="items-grid">
+                    <div class="item">
+                        <img src="https://casafreitas2.vteximg.com.br/arquivos/ids/279275-1000-1000/001279A00001N-jogo-panelas-coimbra-5-pecas-antiaderente-vermelho-tramontina--2-.jpg?v=638703005832670000"
+                            alt="Conjunto de Panelas">
+                        <div class="item-content">
+                            <div class="item-name">Conjunto de Panelas</div>
+                            <div class="item-price">R$ 300,00</div>
+                            <button class="pix-button" onclick="openPixModal('Conjunto de Panelas', 300.00)">Presentear
+                                via PIX</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <p>💝 Obrigado por fazer parte do nosso momento especial. Cada presente é um gesto de carinho que levaremos
+                para sempre.</p>
+        </footer>
+    </div>
+
+    <!-- Modal PIX -->
+    <div id="pixModal" class="modal" aria-hidden="true">
+        <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+            <button class="close" aria-label="Fechar" onclick="closePixModal()">&times;</button>
+            <h2 id="modalTitle">Pagamento via PIX</h2>
+
+            <div class="pix-info">
+                <h3>Detalhes do Presente</h3>
+                <p><strong>Item:</strong> <span id="itemName"></span></p>
+                <p><strong>Valor:</strong> <span id="itemPrice"></span></p>
+            </div>
+
+            <div class="pix-info">
+                <h3>Dados para PIX</h3>
+                <p class="muted">Sua doação é feita direto na nossa chave registrada.</p>
+                <p><strong>CPF (chave):</strong> <span id="pixKey">13113497663</span></p>
+                <p><strong>Nome:</strong> <span id="pixName">Lista de Presentes</span></p>
+                <p><strong>Valor:</strong> <span id="pixValue"></span></p>
+                <div class="actions">
+                    <button class="copy-button" onclick="copyPixKey(this)">Copiar Chave PIX</button>
+                    <button class="copy-button" onclick="copyPixPayload(this)">Copiar código PIX (copia e cola)</button>
+                </div>
+                <p id="payloadPreview" class="muted" style="word-break:break-all;margin-top:6px;"></p>
+            </div>
+
+            <div class="qr-code" id="qrCode">
+                <!-- QR aparece aqui -->
+            </div>
+            <p class="muted" style="text-align:center">Escaneie o QR acima ou cole o código PIX no seu app/banco.</p>
+        </div>
+    </div>
+    <script>
+        function tlv(id, value) {
+            const len = value.length.toString().padStart(2, '0');
+            return `${id}${len}${value}`;
+        }
+        function sanitize(str, max) {
+            return (str || '')
+                .normalize('NFD').replace(/[\u0300-\u036f]/g, '')   // tira acentos
+                .replace(/[^A-Z0-9 \/&.,-]/gi, '')                  // só ASCII seguro
+                .trim().toUpperCase().slice(0, max || 999);
+        }
+        function calculateCRC16(data) {
+            let crc = 0xFFFF;
+            for (let i = 0; i < data.length; i++) {
+                crc ^= (data.charCodeAt(i) << 8);
+                for (let j = 0; j < 8; j++) {
+                    crc = (crc & 0x8000) ? ((crc << 1) ^ 0x1021) : (crc << 1);
+                    crc &= 0xFFFF;
+                }
+            }
+            return crc;
+        }
+
+        // >>> SUBSTITUA sua função por esta <<<
+        function generatePixPayload(cpf, amount, description) {
+            const key = (cpf || '').replace(/\D/g, '');       // CPF como chave
+            const amountStr = Number(amount || 0).toFixed(2); // com ponto
+            const desc = sanitize(description, 25);         // 25 é o limite do 26-02 e 62-05
+            const merchantName = sanitize(
+                (document.getElementById('pixName')?.textContent || 'LISTA DE PRESENTES'), 25
+            );
+            const merchantCity = sanitize('SERRA', 15);
+            const refLabel = desc || 'PRESENTE';           // evita "***" ou vazio
+
+            // 00 e 01
+            let payload = tlv('00', '01');      // Payload Format Indicator
+            payload += tlv('01', '11');         // Estático
+
+            // 26 Merchant Account Information (BR.GOV.BCB.PIX / chave / descrição)
+            const mai = tlv('00', 'BR.GOV.BCB.PIX')
+                + tlv('01', key)
+                + (desc ? tlv('02', desc) : '');
+            payload += tlv('26', mai);
+
+            // Demais campos obrigatórios
+            payload += tlv('52', '0000');       // MCC
+            payload += tlv('53', '986');        // Moeda BRL
+            if (Number(amount) > 0) payload += tlv('54', amountStr);
+            payload += tlv('58', 'BR');         // País
+            payload += tlv('59', merchantName);
+            payload += tlv('60', merchantCity);
+
+            // 62 Additional Data Field Template (05 Reference Label)
+            payload += tlv('62', tlv('05', refLabel));
+
+            // 63 CRC16-CCITT
+            const toCRC = payload + '6304';
+            const crc = calculateCRC16(toCRC).toString(16).toUpperCase().padStart(4, '0');
+            payload += `6304${crc}`;
+            return payload;
+        }
+    </script>
+
+</body>
+
+</html>
